@@ -2,7 +2,7 @@ node {
 
     checkout scm
 
-    docker.withRegistry('https://registry.hub.docker.com', 'docker') {
+    docker.withRegistry('cloudzune/hello-kaniko', 'docker') {
 
         def customImage = docker.build("miltonc/dockerwebapp")
 
