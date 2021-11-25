@@ -1,12 +1,16 @@
-node {
-
-    checkout scm
-
-    docker.withRegistry('cloudzune/hello-kaniko', 'docker') {
-
-        def customImage = docker.build("miltonc/dockerwebapp")
-
-        /* Push the container to the custom Registry */
-        customImage.push()
+pipeline {
+  environment {
+    registry = "cloudzune/hello-kaniko"
+    registryCredential = 'docker'
+  }
+  agent any
+  stages {
+    stage('Building image') {
+      steps{
+        script {
+          docker.build registry + ":$BUILD_NUMBER"
+        }
+      }
     }
+  }
 }
